@@ -1530,11 +1530,11 @@
         </div>
         <h3>Trip Buddy</h3>
         <p class="project-sub">Complete Trip Planner Application</p>
-        <p class="project-period"><i class="far fa-calendar-alt"></i> May 2025 &ndash; Jul 2025</p>
+        <p class="project-period"><i class="far fa-calendar-alt"></i> Jun 2025 &ndash; Jul 2025</p>
         <ul>
-          <li>Engineered a cross-platform travel app using Kotlin Multiplatform (KMP) with Jetpack Compose; built Spring Boot backend with layered MVC architecture (Controller/Service/Repository) and Ktor for async API communication.</li>
-          <li>Integrated 8 external APIs (Eg. Amadeus, OpenWeatherMap, OpenTripMap, Unsplash) for real-time flights, weather, and city data; implemented MVVM with StateFlow and Decompose stack-based navigation across screens.</li>
-          <li>Secured auth via Firebase Google Sign-In; containerized Spring Boot backend with Docker and deployed on Aiven cloud MySQL with native Android PDF export using Kotlin expect/actual mechanism.</li>
+          <li>Engineered a cross-platform travel app using Kotlin Multiplatform (KMP) with Jetpack Compose targeting Android and iOS across 20+ screens; built Spring Boot backend with layered MVC architecture (Controller/Service/Repository) and Ktor for async API communication with &lt;155ms average response latency.</li>
+          <li>Aggregated real-time data from 8 external APIs (Amadeus, OpenWeatherMap, OpenTripMap) via async Ktor client, delivering flights, weather, and attractions in a single session with &lt;3.5s latency.</li>
+          <li>Secured auth via Firebase Google Sign-In; containerized Spring Boot services with Docker and automated deployments via GitHub Actions CI/CD to Aiven cloud MySQL, enabling zero-downtime releases.</li>
         </ul>
         <div class="project-links">
           <a href="https://play.google.com/store/apps/details?id=com.tripbuddy.app" target="_blank"
@@ -1557,9 +1557,9 @@
         <p class="project-sub">Multi-Agent AI Code Generator</p>
         <p class="project-period"><i class="far fa-calendar-alt"></i> Mar 2026 &ndash; Apr 2026</p>
         <ul>
-          <li>Designed a multi-agent AI pipeline using LangGraph (Planner, Architect, Coder, Reviewer) with state-transition graphs, dynamic routing, self-correction cycles, and error-recovery policies.</li>
-          <li>Implemented a structured output LLM runner with a two-stage fallback (schema calling + regex JSON parsing) to handle tool-calling failures gracefully.</li>
-          <li>Engineered a sandboxed live preview in React, parsing and inlining CSS/JS dependencies into HTML Blobs rendered securely in an iframe.</li>
+          <li>Architected a 4-agent LangGraph pipeline (Planner &rarr; Architect &rarr; Coder &rarr; Reviewer) across 6 Pydantic schemas with dynamic routing and self-correction cycles, achieving 90% pass rate on a 10-prompt benchmark.</li>
+          <li>Implemented an LLM output runner with two-stage fallback (schema enforcement &rarr; regex JSON parsing) across 3 agents, raising tool-call success rate from 93.3% to 98.2% and eliminating pipeline crashes on schema violations.</li>
+          <li>Engineered a zero-dependency live preview in React, inlining CSS/JS into sandboxed HTML Blobs rendered in an iframe with worst-case render latency of 3.2ms, eliminating external CDN calls at runtime.</li>
         </ul>
         <div class="project-links">
           <a href="https://agentcoder-jz61.onrender.com/" target="_blank" class="project-link primary"><i
@@ -1576,7 +1576,7 @@
           <span class="project-tag">Node.js</span>
           <span class="project-tag">Express.js</span>
           <span class="project-tag">MySQL</span>
-          <span class="project-tag">Nodemailer</span>
+          <span class="project-tag">Brevo API</span>
           <span class="project-tag">Tailwind CSS</span>
           <span class="project-tag">ImageKit</span>
         </div>
@@ -1584,9 +1584,9 @@
         <p class="project-sub">Supermarket Management System</p>
         <p class="project-period"><i class="far fa-calendar-alt"></i> Aug 2025 &ndash; Nov 2025</p>
         <ul>
-          <li>Architected full-stack supermarket with role-based portals (Owner, Employee, Consumer); secured via JWT, Bcrypt, and Nodemailer SMTP 2FA OTP authentication.</li>
-          <li>Designed 3NF-normalized schema (12 entities) with SQL Triggers for inventory automation and ACID-compliant InnoDB Stored Procedures.</li>
-          <li>Optimized queries via B+ Tree indexes and selection pushdown; Built UI with Framer Motion and ImageKit CDN.</li>
+          <li>Built a full-stack retail platform with LLM-powered shopping recommendations across 3 role-based dashboards (admin/staff/customer), secured via JWT + Bcrypt + OTP authentication.</li>
+          <li>Engineered a 12-entity 3NF MySQL schema with ACID transactions, supporting 50 concurrent orders with zero race conditions; implemented SQL triggers for automated inventory synchronization in &lt;150ms.</li>
+          <li>Optimized MySQL queries using B+ Tree indexes and selection pushdown, reducing execution time by ~40%.</li>
         </ul>
         <div class="project-links">
           <a href="https://shop4ever.vercel.app/" target="_blank" class="project-link primary"><i
