@@ -1297,6 +1297,67 @@
       display: block;
       width: 100%
     }
+
+    /* COURSES */
+    .courses-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .course-card {
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .05);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all .3s;
+    }
+
+    .course-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 212, 255, .15);
+    }
+
+    .course-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .course-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    .course-list li {
+      color: var(--text2);
+      font-size: .95rem;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+
+    .course-list li::before {
+      content: '\25B9';
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+
+    @media(max-width:768px) {
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -1327,6 +1388,7 @@
       <li><a href="#hero" class="active">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
+      <li><a href="#courses">Courses</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#achievements">Achievements</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -1341,7 +1403,7 @@
   </nav>
   <div class="mobile-menu" id="mobileMenu">
     <a href="#hero">Home</a><a href="#about">About</a><a href="#skills">Skills</a>
-    <a href="#projects">Projects</a><a href="#achievements">Achievements</a><a href="#contact">Contact</a>
+    <a href="#courses">Courses</a><a href="#projects">Projects</a><a href="#achievements">Achievements</a><a href="#contact">Contact</a>
   </div>
 
   <!-- HERO -->
@@ -1399,11 +1461,11 @@
             <div class="label">Projects Shipped</div>
           </div>
           <div class="stat-card">
-            <div class="number" data-target="1500">0</div>
+            <div class="number" data-target="1556">0</div>
             <div class="label">LeetCode Rating</div>
           </div>
           <div class="stat-card">
-            <div class="number" data-target="1470">0</div>
+            <div class="number" data-target="1485">0</div>
             <div class="label">Codeforces Rating</div>
           </div>
         </div>
@@ -1485,15 +1547,17 @@
         <h3><i class="fas fa-database"></i> Databases</h3>
         <div class="skill-pills">
           <span class="skill-pill"><i class="devicon-mysql-plain colored"></i> MySQL</span>
-          <span class="skill-pill"><i class="devicon-mongodb-plain colored"></i> MongoDB</span>
-          <span class="skill-pill"><i class="devicon-postgresql-plain colored"></i> PostgreSQL</span>
+          <span class="skill-pill"><i class="devicon-mongodb-plain colored"></i> MongoDB*</span>
+          <span class="skill-pill"><i class="devicon-postgresql-plain colored"></i> PostgreSQL*</span>
         </div>
       </div>
       <div class="skill-category reveal">
         <h3><i class="fas fa-tools"></i> DevOps & Tools</h3>
         <div class="skill-pills">
-          <span class="skill-pill"><i class="devicon-docker-plain colored"></i> Docker</span>
-          <span class="skill-pill"><i class="devicon-git-plain colored"></i> Git/GitHub</span>
+          <span class="skill-pill"><i class="devicon-docker-plain colored"></i> Docker*</span>
+          <span class="skill-pill"><i class="devicon-git-plain colored"></i> Git</span>
+          <span class="skill-pill"><i class="devicon-github-original"></i> GitHub Actions (CI/CD)</span>
+          <span class="skill-pill"><i class="fas fa-paper-plane"></i> Postman</span>
           <span class="skill-pill"><i class="devicon-vercel-original"></i> Vercel</span>
           <span class="skill-pill"><i class="fas fa-cloud"></i> Render</span>
           <span class="skill-pill"><i class="fas fa-cloud"></i> Aiven Cloud</span>
@@ -1507,8 +1571,48 @@
           <span class="skill-pill"><i class="fas fa-robot"></i> Multi-Agent Systems</span>
         </div>
       </div>
+      <div class="skill-footnote reveal" style="margin-top: 2rem; text-align: center; font-size: 0.85rem; color: var(--text2); font-family: var(--font-mono);">
+        * Elementary proficiency
+      </div>
     </div>
   </section>
+
+  <!-- COURSES -->
+  <section id="courses">
+    <div class="section-header reveal">
+      <h2>Key <span>Courses</span></h2>
+      <p>Relevant coursework at IIT Indore</p>
+      <div class="section-divider"></div>
+    </div>
+    <div class="courses-grid reveal">
+      <div class="course-card">
+        <h3><i class="fas fa-calculator"></i> Mathematics</h3>
+        <ul class="course-list">
+          <li>Linear Algebra</li>
+          <li>Complex Analysis</li>
+          <li>Calculus</li>
+          <li>Discrete Maths</li>
+          <li>Probability & Random Processes</li>
+          <li>Mathematics in AIML</li>
+          <li>Numerical Methods</li>
+        </ul>
+      </div>
+      <div class="course-card">
+        <h3><i class="fas fa-laptop-code"></i> CS Core</h3>
+        <ul class="course-list">
+          <li>Data Structure & Algorithm</li>
+          <li>Design & Analysis of Algorithms</li>
+          <li>OOP in C++</li>
+          <li>DBMS</li>
+          <li>Logic Design</li>
+          <li>Automata Theory & Logic</li>
+          <li>Computer Architecture</li>
+          <li>Foundation of Hardware Security</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- PROJECTS -->
   <section id="projects">
     <div class="section-header reveal">
@@ -1626,7 +1730,7 @@
       </div>
       <div class="achievement-item reveal"><span class="achievement-icon">&#128187;</span>
         <div class="achievement-info">
-          <h4>LeetCode Rating 1500+</h4>
+          <h4>LeetCode Rating 1556</h4>
           <p><a href="https://leetcode.com/u/null_noob/" target="_blank"
               style="color:var(--accent);text-decoration:none">View Profile &#8599;</a></p>
         </div><span class="achievement-date">Present</span>
@@ -1634,7 +1738,7 @@
       <div class="achievement-item reveal"><span class="achievement-icon">&#9889;</span>
         <div class="achievement-info">
           <h4>Codeforces Specialist</h4>
-          <p>Max Rating 1470 &mdash; <a href="https://codeforces.com/profile/null_noob" target="_blank"
+          <p>Max Rating 1485 &mdash; <a href="https://codeforces.com/profile/null_noob" target="_blank"
               style="color:var(--accent);text-decoration:none">View Profile &#8599;</a></p>
         </div><span class="achievement-date">Present</span>
       </div>
@@ -1646,8 +1750,8 @@
       </div>
       <div class="achievement-item reveal"><span class="achievement-icon">&#127942;</span>
         <div class="achievement-info">
-          <h4>Winner &mdash; Tech-Eshi Castle</h4>
-          <p>First place in technical gaming competition</p>
+          <h4>Winner &mdash; Tech-Eshi's Castle</h4>
+          <p>Robotics Club, IIT Indore</p>
         </div><span class="achievement-date">Nov 2024</span>
       </div>
     </div>
@@ -1686,10 +1790,10 @@
         </div>
       </div>
       <div class="por-card reveal">
-        <div class="por-icon"><i class="fas fa-tshirt"></i></div>
+        <div class="por-icon"><i class="fas fa-users"></i></div>
         <div>
-          <h4>Member</h4>
-          <p>Fashion Club, IIT Indore</p>
+          <h4>Coordinator</h4>
+          <p>CSESA, IIT Indore</p>
           <div class="por-date">Aug 2025 &ndash; Present</div>
         </div>
       </div>
@@ -1754,7 +1858,7 @@
     document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px' });
     function animateCursor() { rx += (mx - rx) * .15; ry += (my - ry) * .15; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateCursor) }
     animateCursor();
-    document.querySelectorAll('a,button,.project-card,.skill-pill,.achievement-item,.contact-card,.por-card').forEach(el => {
+    document.querySelectorAll('a,button,.project-card,.skill-pill,.achievement-item,.contact-card,.por-card,.course-card').forEach(el => {
       el.addEventListener('mouseenter', () => ring.classList.add('hover'));
       el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
     });
