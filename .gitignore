@@ -1,0 +1,22 @@
+# LaTeX source files - keep private
+*.tex
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.toc
+
+# LaTeX generated (keep PDFs for download)
+# *.pdf
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+*.swp
+*.swo
+*~
