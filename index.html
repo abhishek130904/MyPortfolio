@@ -107,35 +107,44 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity .6s
+      flex-direction: column;
+      gap: 2rem;
+      transition: opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1)
+    }
+
+    #loader .loader-ring {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: var(--accent);
+      border-right-color: var(--accent2);
+      animation: loaderSpin 1s cubic-bezier(.6,.2,.4,.8) infinite
     }
 
     #loader .logo {
       font-family: var(--font-heading);
-      font-size: 4rem;
+      font-size: 3.5rem;
       font-weight: 700;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+      background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: pulse 1.2s ease-in-out infinite
+      animation: gradientShift 2s ease infinite
     }
 
-    @keyframes pulse {
+    @keyframes loaderSpin {
+      to { transform: rotate(360deg) }
+    }
 
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 1
-      }
-
-      50% {
-        transform: scale(1.1);
-        opacity: .7
-      }
+    @keyframes gradientShift {
+      0%,100% { background-position: 0% 50% }
+      50% { background-position: 100% 50% }
     }
 
     #loader.hidden {
       opacity: 0;
+      transform: scale(1.1);
       pointer-events: none
     }
 
@@ -1281,8 +1290,8 @@
     /* REVEAL */
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: all .8s cubic-bezier(.25, .46, .45, .94)
+      transform: translateY(40px);
+      transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1)
     }
 
     .reveal.active {
@@ -1292,8 +1301,8 @@
 
     .reveal-left {
       opacity: 0;
-      transform: translateX(-30px);
-      transition: all .8s
+      transform: translateX(-50px);
+      transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1)
     }
 
     .reveal-left.active {
@@ -1303,14 +1312,24 @@
 
     .reveal-right {
       opacity: 0;
-      transform: translateX(30px);
-      transition: all .8s
+      transform: translateX(50px);
+      transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1)
     }
 
     .reveal-right.active {
       opacity: 1;
       transform: translateX(0)
     }
+
+    /* STAGGER DELAYS */
+    .stagger-1 { transition-delay: .05s }
+    .stagger-2 { transition-delay: .1s }
+    .stagger-3 { transition-delay: .15s }
+    .stagger-4 { transition-delay: .2s }
+    .stagger-5 { transition-delay: .25s }
+    .stagger-6 { transition-delay: .3s }
+    .stagger-7 { transition-delay: .35s }
+    .stagger-8 { transition-delay: .4s }
 
     /* GRADIENT BG */
     .gradient-bg {
@@ -1323,55 +1342,44 @@
     .gradient-bg .blob {
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
-      opacity: .15;
-      animation: blobMove 20s ease-in-out infinite
+      filter: blur(100px);
+      opacity: .18;
+      animation: blobMove 25s ease-in-out infinite
     }
 
     .gradient-bg .blob:nth-child(1) {
-      width: 500px;
-      height: 500px;
-      background: var(--accent);
-      top: -10%;
-      left: -10%
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent), transparent 70%);
+      top: -15%;
+      left: -15%
     }
 
     .gradient-bg .blob:nth-child(2) {
-      width: 400px;
-      height: 400px;
-      background: var(--accent2);
-      top: 50%;
-      right: -5%;
-      animation-delay: -7s
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--accent2), transparent 70%);
+      top: 40%;
+      right: -10%;
+      animation-delay: -8s;
+      animation-duration: 30s
     }
 
     .gradient-bg .blob:nth-child(3) {
-      width: 300px;
-      height: 300px;
-      background: var(--accent3);
-      bottom: -5%;
-      left: 30%;
-      animation-delay: -14s
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--accent3), transparent 70%);
+      bottom: -10%;
+      left: 25%;
+      animation-delay: -16s;
+      animation-duration: 22s
     }
 
     @keyframes blobMove {
-
-      0%,
-      100% {
-        transform: translate(0, 0) scale(1)
-      }
-
-      25% {
-        transform: translate(40px, -30px) scale(1.1)
-      }
-
-      50% {
-        transform: translate(-20px, 40px) scale(.9)
-      }
-
-      75% {
-        transform: translate(30px, 20px) scale(1.05)
-      }
+      0%,100% { transform: translate(0, 0) scale(1) rotate(0deg) }
+      25% { transform: translate(60px, -50px) scale(1.15) rotate(5deg) }
+      50% { transform: translate(-40px, 60px) scale(.85) rotate(-5deg) }
+      75% { transform: translate(50px, 30px) scale(1.1) rotate(3deg) }
     }
 
     /* WAVE */
@@ -1461,6 +1469,198 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* === HERO ENTRANCE ANIMATIONS === */
+    .hero-text > * {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: heroFadeUp .8s cubic-bezier(.16,1,.3,1) forwards
+    }
+    .hero-text > *:nth-child(1) { animation-delay: 1.4s }
+    .hero-text > *:nth-child(2) { animation-delay: 1.6s }
+    .hero-text > *:nth-child(3) { animation-delay: 1.8s }
+    .hero-text > *:nth-child(4) { animation-delay: 2.0s }
+
+    .hero-visual {
+      opacity: 0;
+      transform: scale(.8) translateY(20px);
+      animation: heroScaleIn 1s cubic-bezier(.16,1,.3,1) 1.5s forwards
+    }
+
+    @keyframes heroFadeUp {
+      to { opacity: 1; transform: translateY(0) }
+    }
+    @keyframes heroScaleIn {
+      to { opacity: 1; transform: scale(1) translateY(0) }
+    }
+
+    /* === ANIMATED GRADIENT TEXT (for section headings) === */
+    .section-header h2 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientText 4s ease infinite
+    }
+    @keyframes gradientText {
+      0%,100% { background-position: 0% 50% }
+      50% { background-position: 100% 50% }
+    }
+
+    /* === ANIMATED SECTION DIVIDER === */
+    .section-divider {
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+      background-size: 200% 100%;
+      margin: 1rem auto 0;
+      border-radius: 2px;
+      animation: dividerShimmer 3s ease infinite
+    }
+    @keyframes dividerShimmer {
+      0%,100% { background-position: 0% 50% }
+      50% { background-position: 100% 50% }
+    }
+
+    /* === ROTATING BORDER GRADIENT ON CARDS (hover) === */
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 20px;
+      padding: 1px;
+      background: conic-gradient(from var(--card-angle, 0deg), var(--accent), var(--accent2), var(--accent3), var(--accent));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity .5s
+    }
+    .project-card:hover::after {
+      opacity: 1
+    }
+
+    /* === MAGNETIC BUTTON EFFECT === */
+    .btn-primary {
+      position: relative;
+      overflow: hidden
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,.15) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: none
+    }
+    .btn-primary:hover::after {
+      animation: btnShimmer .6s ease forwards
+    }
+    @keyframes btnShimmer {
+      to { transform: translateX(100%) }
+    }
+
+    /* === NAV LINK ANIMATED UNDERLINE === */
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .35s cubic-bezier(.16,1,.3,1), left .35s cubic-bezier(.16,1,.3,1);
+      border-radius: 1px
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+      left: 0
+    }
+
+    /* === 3D TILT PERSPECTIVE === */
+    .tilt-card {
+      transform-style: preserve-3d;
+      perspective: 1000px
+    }
+
+    /* === FLOATING ICON IMPROVED === */
+    .floating-icon {
+      position: absolute;
+      font-size: 2rem;
+      opacity: .5;
+      animation: floatIcon 6s ease-in-out infinite;
+      filter: drop-shadow(0 0 8px currentColor)
+    }
+    @keyframes floatIcon {
+      0%,100% { transform: translateY(0) rotate(0deg) scale(1) }
+      50% { transform: translateY(-20px) rotate(12deg) scale(1.1) }
+    }
+
+    /* === SCROLL INDICATOR PULSE === */
+    .scroll-indicator {
+      animation: scrollPulse 2.5s ease-in-out infinite
+    }
+    @keyframes scrollPulse {
+      0%,100% { transform: translateX(-50%) translateY(0); opacity: 1 }
+      50% { transform: translateX(-50%) translateY(12px); opacity: .5 }
+    }
+
+    /* === FOOTER LINK HOVER === */
+    footer .social-icons a {
+      transition: all .35s cubic-bezier(.16,1,.3,1)
+    }
+    footer .social-icons a:hover {
+      color: var(--accent);
+      transform: translateY(-5px) scale(1.15);
+      filter: drop-shadow(0 4px 8px var(--glow-cyan))
+    }
+
+    /* === TIMELINE DOT PULSE === */
+    .timeline-item::before {
+      animation: dotPulse 2s ease-in-out infinite
+    }
+    @keyframes dotPulse {
+      0%,100% { box-shadow: 0 0 10px var(--accent) }
+      50% { box-shadow: 0 0 20px var(--accent), 0 0 30px var(--glow-cyan) }
+    }
+
+    /* === POR ICON GRADIENT SPIN === */
+    .por-card .por-icon {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background-size: 200% 200%;
+      animation: gradientShift 3s ease infinite
+    }
+
+    /* === SMOOTH CARD INNER GLOW === */
+    .project-card .card-accent {
+      transition: opacity .5s;
+      animation: cardGlowPulse 4s ease-in-out infinite alternate
+    }
+    @keyframes cardGlowPulse {
+      0% { opacity: .08 }
+      100% { opacity: .15 }
+    }
+
+    /* === BACK TO TOP SPIN ON HOVER === */
+    .back-top:hover {
+      transform: translateY(-3px) rotate(360deg);
+      box-shadow: 0 8px 25px var(--glow-cyan)
+    }
+    .back-top {
+      transition: all .5s cubic-bezier(.16,1,.3,1)
+    }
+
+    /* === THEME TOGGLE ANIMATION === */
+    .theme-toggle {
+      transition: all .4s cubic-bezier(.16,1,.3,1)
+    }
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: rotate(180deg) scale(1.1);
+      box-shadow: 0 0 15px var(--glow-cyan)
+    }
   </style>
 </head>
 
@@ -1481,6 +1681,7 @@
 
   <!-- LOADER -->
   <div id="loader">
+    <div class="loader-ring"></div>
     <div class="logo">AR</div>
   </div>
 
@@ -1725,7 +1926,7 @@
     </div>
     <div class="projects-grid">
       <!-- Trip Buddy -->
-      <div class="project-card blue-accent reveal">
+      <div class="project-card blue-accent tilt-card reveal">
         <div class="card-accent"></div>
         <div class="project-tags">
           <span class="project-tag">Kotlin Multiplatform</span>
@@ -1751,7 +1952,7 @@
         </div>
       </div>
       <!-- CoderBuddy -->
-      <div class="project-card purple-accent reveal">
+      <div class="project-card purple-accent tilt-card reveal">
         <div class="card-accent"></div>
         <div class="project-tags">
           <span class="project-tag">FastAPI</span>
@@ -1776,7 +1977,7 @@
         </div>
       </div>
       <!-- Shop4Ever -->
-      <div class="project-card green-accent reveal">
+      <div class="project-card green-accent tilt-card reveal">
         <div class="card-accent"></div>
         <div class="project-tags">
           <span class="project-tag">React</span>
@@ -1953,39 +2154,77 @@
   <button class="back-top" id="backTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
   <script>
     // ===== LOADER =====
-    window.addEventListener('load', () => { setTimeout(() => { const l = document.getElementById('loader'); l.classList.add('hidden'); setTimeout(() => l.style.display = 'none', 600) }, 1200) });
-
-    // ===== CUSTOM CURSOR =====
-    const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px' });
-    function animateCursor() { rx += (mx - rx) * .15; ry += (my - ry) * .15; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateCursor) }
-    animateCursor();
-    document.querySelectorAll('a,button,.project-card,.skill-pill,.achievement-item,.contact-card,.por-card,.course-card').forEach(el => {
-      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const l = document.getElementById('loader');
+        l.classList.add('hidden');
+        setTimeout(() => l.style.display = 'none', 800);
+      }, 1400);
     });
 
-    // ===== PARTICLES =====
+    // ===== CUSTOM CURSOR (smooth with scale on interactive) =====
+    const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    });
+    function animateCursor() {
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+    document.querySelectorAll('a,button,.project-card,.skill-pill,.achievement-item,.contact-card,.por-card,.course-card').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.classList.add('hover'); dot.style.transform = 'translate(-50%,-50%) scale(0.5)' });
+      el.addEventListener('mouseleave', () => { ring.classList.remove('hover'); dot.style.transform = 'translate(-50%,-50%) scale(1)' });
+    });
+
+    // ===== INTERACTIVE PARTICLES (mouse-reactive) =====
     const canvas = document.getElementById('particles'), ctx = canvas.getContext('2d');
-    let W, H; function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight }
+    let W, H, mouseX = 0, mouseY = 0;
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight }
     resize(); window.addEventListener('resize', resize);
+    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY });
     const particles = [];
-    for (let i = 0; i < 80; i++)particles.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 2 + .5, dx: (Math.random() - .5) * .4, dy: (Math.random() - .5) * .4, o: Math.random() * .5 + .1 });
+    for (let i = 0; i < 90; i++) particles.push({
+      x: Math.random() * (typeof W !== 'undefined' ? W : 1920),
+      y: Math.random() * (typeof H !== 'undefined' ? H : 1080),
+      r: Math.random() * 2 + .5,
+      dx: (Math.random() - .5) * .3,
+      dy: (Math.random() - .5) * .3,
+      o: Math.random() * .5 + .1,
+      baseO: Math.random() * .5 + .1
+    });
     function drawParticles() {
       ctx.clearRect(0, 0, W, H);
       particles.forEach(p => {
+        // Mouse repulsion
+        const dmx = p.x - mouseX, dmy = p.y - mouseY;
+        const dm = Math.sqrt(dmx * dmx + dmy * dmy);
+        if (dm < 150) {
+          const force = (150 - dm) / 150 * .8;
+          p.x += dmx / dm * force;
+          p.y += dmy / dm * force;
+          p.o = Math.min(1, p.baseO + force);
+        } else {
+          p.o += (p.baseO - p.o) * .05;
+        }
         p.x += p.dx; p.y += p.dy;
-        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0; if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,212,255,${p.o})`; ctx.fill();
+        ctx.fillStyle = `rgba(0,200,255,${p.o})`; ctx.fill();
       });
-      // connections
-      for (let i = 0; i < particles.length; i++)for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y, d = Math.sqrt(dx * dx + dy * dy);
-        if (d < 120) {
-          ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(0,212,255,${.08 * (1 - d / 120)})`; ctx.stroke();
+      // Connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 130) {
+            ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(0,200,255,${.06 * (1 - d / 130)})`; ctx.lineWidth = 0.5; ctx.stroke();
+          }
         }
       }
       requestAnimationFrame(drawParticles);
@@ -2023,7 +2262,6 @@
     if (localStorage.getItem('theme') === 'light') isDark = false;
     applyTheme();
     toggles.forEach(t => { if (t) t.addEventListener('click', () => { isDark = !isDark; applyTheme() }) });
-    // Show mobile toggle
     const mThemeToggle = document.getElementById('themeToggleMobile');
     function checkMobile() { if (mThemeToggle) mThemeToggle.style.display = window.innerWidth <= 768 ? 'flex' : 'none' }
     checkMobile(); window.addEventListener('resize', checkMobile);
@@ -2038,28 +2276,110 @@
       ci = deleting ? ci - 1 : ci + 1;
       if (!deleting && ci === current.length) { setTimeout(() => { deleting = true; typewrite() }, 1800); return }
       if (deleting && ci === 0) { deleting = false; pi = (pi + 1) % phrases.length }
-      setTimeout(typewrite, deleting ? 40 : 80);
+      setTimeout(typewrite, deleting ? 35 : 70);
     }
     typewrite();
 
-    // ===== REVEAL ON SCROLL =====
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('active'), i * 100); observer.unobserve(e.target) } })
-    }, { threshold: .1, rootMargin: '0px 0px -50px 0px' });
-    document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => observer.observe(el));
+    // ===== REVEAL ON SCROLL (with stagger) =====
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          // Stagger children if they have stagger class
+          const delay = parseInt(e.target.dataset.delay) || 0;
+          setTimeout(() => e.target.classList.add('active'), delay);
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: .08, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach((el, i) => {
+      // Auto-stagger sibling reveals
+      const parent = el.parentElement;
+      const siblings = parent ? Array.from(parent.querySelectorAll(':scope > .reveal, :scope > .reveal-left, :scope > .reveal-right')) : [];
+      const idx = siblings.indexOf(el);
+      if (idx > 0) el.dataset.delay = idx * 80;
+      revealObserver.observe(el);
+    });
 
-    // ===== ANIMATED COUNTERS =====
+    // ===== ANIMATED COUNTERS (with easing) =====
     const counterObserver = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           const el = e.target, target = parseInt(el.dataset.target);
-          let count = 0; const inc = target / 60;
-          const timer = setInterval(() => { count += inc; if (count >= target) { el.textContent = (target >= 1000 ? target.toLocaleString() : target) + '+'; clearInterval(timer) } else { el.textContent = Math.floor(count).toLocaleString() } }, 25);
+          const duration = 1500;
+          const startTime = performance.now();
+          function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4) }
+          function animate(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const value = Math.floor(easeOutQuart(progress) * target);
+            el.textContent = (value >= 1000 ? value.toLocaleString() : value) + (progress >= 1 ? '+' : '');
+            if (progress < 1) requestAnimationFrame(animate);
+          }
+          requestAnimationFrame(animate);
           counterObserver.unobserve(el);
         }
       });
     }, { threshold: .5 });
     document.querySelectorAll('.number[data-target]').forEach(el => counterObserver.observe(el));
+
+    // ===== 3D TILT EFFECT ON CARDS =====
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        card.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1)';
+        setTimeout(() => card.style.transition = '', 500);
+      });
+      card.addEventListener('mouseenter', () => {
+        card.style.transition = 'none';
+      });
+    });
+
+    // ===== ROTATING CARD BORDER GRADIENT =====
+    let cardAngle = 0;
+    function animateCardBorder() {
+      cardAngle = (cardAngle + .5) % 360;
+      document.querySelectorAll('.project-card').forEach(c => {
+        c.style.setProperty('--card-angle', cardAngle + 'deg');
+      });
+      requestAnimationFrame(animateCardBorder);
+    }
+    animateCardBorder();
+
+    // ===== PARALLAX HERO ON SCROLL =====
+    const heroSection = document.querySelector('.hero');
+    const heroContent = document.querySelector('.hero-content');
+    window.addEventListener('scroll', () => {
+      if (!heroSection || !heroContent) return;
+      const scrolled = window.scrollY;
+      if (scrolled < window.innerHeight) {
+        const parallax = scrolled * .3;
+        heroContent.style.transform = `translateY(${parallax}px)`;
+        heroContent.style.opacity = 1 - scrolled / (window.innerHeight * .8);
+      }
+    });
+
+    // ===== MAGNETIC BUTTONS =====
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * .15}px, ${y * .15}px) translateY(-2px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
 
     // ===== BACK TO TOP =====
     const backTop = document.getElementById('backTop');
@@ -2079,6 +2399,17 @@
         window.location.href = `mailto:rajabhishek4444@gmail.com?subject=${subject}&body=${body}`;
       });
     }
+
+    // ===== SMOOTH SKILL PILL HOVER GLOW POSITION =====
+    document.querySelectorAll('.skill-pill').forEach(pill => {
+      pill.addEventListener('mousemove', e => {
+        const rect = pill.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        pill.style.setProperty('--glow-x', x + 'px');
+        pill.style.setProperty('--glow-y', y + 'px');
+      });
+    });
   </script>
 </body>
 
